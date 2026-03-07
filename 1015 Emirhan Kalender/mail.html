@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EmkaHolding İletişim</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+body{
+  margin:0;
+  font-family:Segoe UI;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.card{
+  background:white;
+  width:450px;
+  padding:40px;
+  border-radius:20px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.4);
+  position:relative;
+}
+.logo{
+  position:absolute;
+  top:20px;
+  left:20px;
+  font-size:22px;
+  color:#004aad;
+}
+h2{
+  text-align:center;
+  margin-bottom:30px;
+  color:#004aad;
+}
+input, textarea{
+  width:100%;
+  padding:15px;
+  margin-bottom:20px;
+  border-radius:10px;
+  border:1px solid #ccc;
+  font-size:15px;
+}
+button{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(90deg,#004aad,#1e90ff);
+  color:white;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+button:hover{
+  transform:scale(1.03);
+}
+#toast{
+  position:fixed;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#004aad;
+  color:white;
+  padding:15px 30px;
+  border-radius:8px;
+  display:none;
+}
+.logo-container {
+  display: flex;
+  justify-content: center;   
+  align-items: center;      
+  height: 25vh;            
+}
+
+.logo {
+  width: 20px; 
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+  <div class="logo-container">
+   <img alt="Porto" width="250" height="150" src="img/Adsız-tasarım.png">
+</div>
+ 
+  <h2>Mesaj Gönder</h2>
+
+  <form id="contact-form">
+    <input type="text" name="user_name" placeholder="Adınız" required>
+    <input type="email" name="user_email" placeholder="Emailiniz" required>
+    <textarea name="message" placeholder="Mesajınız" required></textarea>
+    <button type="submit">Gönder</button>
+  </form>
+</div>
+
+<div id="toast">Mail Gönderildi ✔</div>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+emailjs.init("y3x52NVio5KyxIOQV");
+
+const form = document.getElementById("contact-form");
+const toast = document.getElementById("toast");
+
+form.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  emailjs.send("service_c29lugi","template_pkq2gfr",{
+    user_name: form.user_name.value,
+    user_email: form.user_email.value,
+    message: form.message.value
+  }).then(()=>{
+      toast.style.display="block";
+      setTimeout(()=>{toast.style.display="none"},5000);
+      form.reset();
+  });
+});
+</script>
+
+</body>
+</html>
